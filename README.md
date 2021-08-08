@@ -2,4 +2,4 @@
 
 This repo contains my internship project.
 
-in the first step: I implemented a retrieval system for persian address data using Elasticsearch.
+first step: I implemented a retrieval system for persian address data using Elasticsearch.
