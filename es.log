@@ -1,0 +1,76 @@
+08/07/2021 03:31:52 PM		True
+08/07/2021 03:31:52 PM		deleting index address_index
+08/07/2021 03:31:52 PM		Creating index address_index with the following schema: {
+  "settings": {
+    "index": {
+      "analysis": {
+        "char_filter": {
+          "zero_width_spaces": {
+            "type": "mapping",
+            "mappings": [
+              "\\u200C=>\\u0020"
+            ]
+          }
+        },
+        "filter": {
+          "EL_synonym": {
+            "type": "synonym",
+            "synonyms": [
+              "\u062e => \u062e\u06cc\u0627\u0628\u0627\u0646",
+              "\u06a9 => \u06a9\u0648\u0686\u0647",
+              "\u0628 => \u0628\u0644\u0648\u0627\u0631",
+              "\u067e => \u067e\u0644\u0627\u06a9",
+              "\u0645 => \u0645\u06cc\u062f\u0627\u0646",
+              "\u0628\u0644 => \u0628\u0644\u0648\u0627\u0631",
+              "\u0628\u0646 => \u0628\u0646 \u0628\u0633\u062a"
+            ]
+          },
+          "persian_stop": {
+            "type": "stop",
+            "stopwords": "_persian_"
+          }
+        },
+        "analyzer": {
+          "EL_address_analyzer": {
+            "type": "custom",
+            "tokenizer": "standard",
+            "char_filter": [
+              "zero_width_spaces"
+            ],
+            "filter": [
+              "lowercase",
+              "elision",
+              "asciifolding",
+              "decimal_digit",
+              "arabic_normalization",
+              "persian_normalization",
+              "persian_stop",
+              "EL_synonym"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "address": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        },
+        "analyzer": "EL_address_analyzer"
+      },
+      "building_no": {
+        "type": "keyword"
+      },
+      "unit": {
+        "type": "text"
+      }
+    }
+  }
+}
+08/07/2021 03:32:37 PM		Writing 200000 documents to ES index address_index
